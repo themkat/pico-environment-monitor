@@ -7,10 +7,9 @@ class EnvironmentMonitorTemperatureTests(unittest.TestCase):
         environment_monitor = EnvironmentMonitor()
         self.assertIsNone(environment_monitor.temperature())
 
-    # def test_temperature_input_no_suitable_method(self):
-    #     mock = type("MockTemperature", (), {})
-    #     with self.assertRaises(MissingMethodError):
-    #         environment_monitor = EnvironmentMonitor(temperature_monitor = mock)
+    def test_temperature_input_no_suitable_method(self):
+        mock = type("MockTemperature", (), {})
+        self.assertRaises(MissingMethodError, lambda: EnvironmentMonitor(temperature_monitor = mock))
 
     def test_temperature(self):
         mock = type("MockTemperature", (), { "temperature":  lambda: 22.2 })
