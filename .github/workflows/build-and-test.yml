@@ -1,0 +1,16 @@
+name: Run tests and verify design
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Run tests
+        working-directory: /code
+        run: |
+          python -m unittest -v envmon_tests.py
