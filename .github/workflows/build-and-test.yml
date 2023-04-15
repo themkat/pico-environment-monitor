@@ -14,3 +14,4 @@ jobs:
         working-directory: code
         run: |
           python -m unittest -v envmon_tests.py
+          python -m unittest -v report_tests.py
