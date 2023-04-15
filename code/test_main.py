@@ -2,4 +2,8 @@
 # (rename to code.py for automatic runs)
 import unittest
 
-unittest.main('envmon_tests')
+# primitive test discovery
+from envmon_tests import *
+from report_tests import *
+
+unittest.main()
