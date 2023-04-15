@@ -11,6 +11,6 @@ jobs:
         with:
           python-version: '3.x'
       - name: Run tests
-        working-directory: /code
+        working-directory: code
         run: |
           python -m unittest -v envmon_tests.py
