@@ -11,7 +11,7 @@ def create_prometheus_report(environment_monitor):
     Parameters:
     environment_monitor : Environment monitor object that has the needed methods
     """
-    pass
+    return "temperature " + str(environment_monitor.temperature()) + "\nhumidity " + str(environment_monitor.humidity()) + "\neCO2 " + str(environment_monitor.eCO2()) 
 
 def create_json_report(environment_monitor):
     """
