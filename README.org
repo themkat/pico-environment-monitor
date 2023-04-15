@@ -1,0 +1,20 @@
+[[https://github.com/themkat/pico-environment-monitor/actions/workflows/build-and-test.yml][file:https://github.com/themkat/pico-environment-monitor/actions/workflows/build-and-test.yml/badge.svg]]
+* Pico Environment Monitor
+
+
+
+TODO: both a prometheus endpoint and a json one? Json is easier to parse in browsers and similar. (also if I make a smartwatch app?)
+
+
+polyfill for Python3 UnitTest:
+https://github.com/mytechnotalent/CircuitPython_Unittest
+
+
+** Directory structure
+
+- root contains readme, scripts and other common things
+- *code*: contains the CircuitPython code as well as unit tests
+
+  
+** Local development dependencies
+asddisfnsdf
