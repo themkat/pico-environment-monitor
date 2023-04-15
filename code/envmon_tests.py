@@ -34,5 +34,18 @@ class EnvironmentMonitorHumidityTests(unittest.TestCase):
         self.assertIsNotNone(humidity)
         self.assertAlmostEqual(45.5, humidity if humidity else float('nan'))
 
+class EnvironmentMonitorECO2Tests(unittest.TestCase):
+    def test_eco2_none(self):
+        environment_monitor = EnvironmentMonitor()
+        self.assertIsNone(environment_monitor.eCO2())
 
-# TODO: test classes for the other variants
+    def test_eco2_input_no_suitable_method(self):
+        mock = type("MockCO2", (), {})
+        self.assertRaises(MissingMethodError, lambda: EnvironmentMonitor(eco2_monitor = mock))
+
+    def test_eco2(self):
+        mock = type("MockCO2", (), { "eCO2":  lambda: 410 })
+        environment_monitor = EnvironmentMonitor(eco2_monitor = mock)
+        eco2 = environment_monitor.eCO2()
+        self.assertIsNotNone(eco2)
+        self.assertEqual(410, eco2)
