@@ -1,15 +1,6 @@
 [[https://github.com/themkat/pico-environment-monitor/actions/workflows/build-and-test.yml][file:https://github.com/themkat/pico-environment-monitor/actions/workflows/build-and-test.yml/badge.svg]]
 * Pico Environment Monitor
 
-
-
-TODO: both a prometheus endpoint and a json one? Json is easier to parse in browsers and similar. (also if I make a smartwatch app?)
-
-
-polyfill for Python3 UnitTest:
-https://github.com/mytechnotalent/CircuitPython_Unittest
-
-
 ** Project goals
 I had a few goals with this project:
 - Have a basic monitor with temperature, humidity, CO2 etc. where data could easily be read by other devices on my network
@@ -25,28 +16,51 @@ I had a few goals with this project:
 
   
 ** Local development dependencies
-asddisfnsdf
+To be able to design the logic before I got the sensors, I decided to dual-target the unit tests. The two targets was my computer, as well as the device itself. This means abstracting away hardware dependencies to make developing the logic locally possible. The local logic included the report formatters, as well as a wrapper for getting sensor information. To run this, you can navigate to the =code= directory and run =test_main.py=. To people unfamiliar with test driven development, this might seem overkill. On the other hand, it makes changing sensors etc. easy without affecting the underlying logic. 
 
 
-** On board development
-# TODO: mention the primitive test main script and how I run it
-# cp ... code.py
+** On-board development
+The following sensors are used in my implementation:
+- BME688 (Adafruit)
+- SGP30 (Adafruit)
 
 
-# TODO: mention that this is based on what I have done so far. Could probably be automated with scripts for bigger projects
+See them used in the drawing below:
 
 [[./rpi_pico_envmonitor_sketch.png]]
 (the picture is of a regular Pico with headers, as I couldn't find a Pico W Fritzing part. Just imagine that it is the Pico W. They are pin compatible after all. Also the BME680 is pin compatible with the BME688 which I used, and they also use the same libraries)
 
-# TODO: mention circup for installing dependencies. takes up less space than the pre-installed zip files with tons of shit
+
+To run Python code on the Raspberry Pi Pico W, [[https://circuitpython.org/board/raspberry_pi_pico_w/][CircuitPython]] is used. This should be downloaded and installed on your Pico W before any of the below code can be run. 
+
+
 *** Unit tests
-# TODO. what files need to be uploaded.
+To run the unit tests on the device, a simple "polyfill" for unit test functionality is needed. Fortunately, [[https://github.com/mytechnotalent/CircuitPython_Unittest][the user mytechnotalent made an awesome polyfill for Pythons built-unit unittest]], which makes it easy to run the same tests on device and on a development system. Simply copy unittest.py to the device, and we are ready to go!  
+
+
 While working on the unit tests, I really just copied over the related files and the tests (including the testmain =test_main.py=). This is automated in the script called =deploy_test.sh=, with the path to the CircuitPython volume as input (e.g, =/Volumes/CIRCUITPY= on my Mac). 
 
-# TODO: the polyfill that is needed to make unittests work good on device
-
 *** Running the main program
-# TODO: circup for handling the device specific dependencies. Should this be mentioned before Unit testing?
-# TODO: the files needed to be uploaded
+Remember that the necessary libraries need to be in place for the sensors and web server functionality to work. I use [[https://github.com/adafruit/circup][CircUp]] to handle this. The following libraries is needed:
+- adafruit_httpserver
+- adafruit_sgp30
+- adafruit_bme680
 
-# TODO: settings.toml
+
+To run the main program, you should set up a =settings.toml= file with network information and copy to the Pico. This file will look like this:
+#+BEGIN_SRC toml
+  WIFI_SSID = "myssid"
+  WIFI_PASSWORD = "mypass"
+#+END_SRC
+(replace myssid with your routers SSID and mypass with your routers WPA/WPA2 password)
+
+
+After this file is transferred, the main code files from the =code= directory should be transferred. This is done through the script =deploy_main.sh=, with the path to the CircuitPython volume as input (e.g, =/Volumes/CIRCUITPY= on my Mac). 
+
+
+The code provides the following endpoints:
+- */environment* : Prometheus endpoint for metrics.
+- */environment.json* : The data in json-format.
+
+
+Temperature, humidity and eCO2 is the data provided.
