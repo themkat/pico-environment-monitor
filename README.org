@@ -64,3 +64,16 @@ The code provides the following endpoints:
 
 
 Temperature, humidity and eCO2 is the data provided.
+
+
+**** Exposing the data to Prometheus
+The Prometheus endpoint can easily be read by Prometheus to get the temperature, humidity and eCO2 data. These can then be read to create dashboards for something like Grafana. A simple Prometheus scrape config I have used is the following:
+
+#+BEGIN_SRC yaml
+  - job_name: 'env_monitor'
+    scrape_interval: 5s
+    metrics_path: "/environment"
+    static_configs:
+      - targets: ["10.0.0.7"]
+#+END_SRC
+(you might have to change the ip of your Raspberry Pi Pico W on your local network. Also, feel free to change the scrape interval. I think I will use something like 30s once I get a more permanent Kubernetes cluster up and running in my home-lab)
