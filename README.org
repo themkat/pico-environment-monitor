@@ -30,6 +30,8 @@ See them used in the drawing below:
 [[./rpi_pico_envmonitor_sketch.png]]
 (the picture is of a regular Pico with headers, as I couldn't find a Pico W Fritzing part. Just imagine that it is the Pico W. They are pin compatible after all. Also the BME680 is pin compatible with the BME688 which I used, and they also use the same libraries)
 
+*NOTE: The gray wire is partially occluded behind the purple and white ones! It goes from the SCL on the SGP30 to the GP3 on the Pico (the one right below the purple wire on GP2. See [[https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf][the Pico W data sheet]] if you are unsure about the pin layout.*
+
 
 To run Python code on the Raspberry Pi Pico W, [[https://circuitpython.org/board/raspberry_pi_pico_w/][CircuitPython]] is used. This should be downloaded and installed on your Pico W before any of the below code can be run. 
 
