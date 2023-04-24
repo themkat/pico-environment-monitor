@@ -33,6 +33,11 @@ See them used in the drawing below:
 *NOTE: The gray wire is partially occluded behind the purple and white ones! It goes from the SCL on the SGP30 to the GP3 on the Pico (the one right below the purple wire on GP2. See [[https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf][the Pico W data sheet]] if you are unsure about the pin layout.*
 
 
+My setup looks like this (don't judge my lack of soldering skills too hard, it works):
+[[./picow_envmonitor.jpeg]]
+
+
+
 To run Python code on the Raspberry Pi Pico W, [[https://circuitpython.org/board/raspberry_pi_pico_w/][CircuitPython]] is used. This should be downloaded and installed on your Pico W before any of the below code can be run. 
 
 
