@@ -2,8 +2,6 @@ import board
 import busio
 import adafruit_bme680
 import adafruit_sgp30
-# WHY DOESNT LOCAL ENV FIND THE HTTPSERVER?!?!?
-# really tedious to develop without any completion here...
 from adafruit_httpserver.server import HTTPServer
 from adafruit_httpserver.mime_type import MIMEType
 from adafruit_httpserver.response import HTTPResponse
@@ -23,9 +21,7 @@ from report import create_prometheus_report
 # main entrypoint file
 # contains mostly device specific code for Raspberry Pi Pico W and sensors
 
-
 # Set up EnvironmentMonitor abstractions and hardware wrappers
-# TODO: decide on the pins being used for each
 bme688_i2c = busio.I2C(board.GP1, board.GP0)
 bme688 = adafruit_bme680.Adafruit_BME680_I2C(bme688_i2c)
 
