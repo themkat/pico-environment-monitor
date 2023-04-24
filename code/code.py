@@ -32,7 +32,7 @@ bme688 = adafruit_bme680.Adafruit_BME680_I2C(bme688_i2c)
 sgp30_i2c = busio.I2C(board.GP3, board.GP2, frequency=100000)
 sgp30 = adafruit_sgp30.Adafruit_SGP30(sgp30_i2c)
 
-# TODO: check why we can't take self as input. CircuitPython specifics? Or is is that I'm rusty with Python knowledge?
+# just use static functions as we do not need state
 class BME688TemperatureWrapper:
     def temperature():
         # TODO: adafruit uses 5 as the offset in their examples. Find a suitable one
